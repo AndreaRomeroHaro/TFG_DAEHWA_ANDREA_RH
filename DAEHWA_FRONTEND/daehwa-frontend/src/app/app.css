@@ -1,0 +1,12 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+app-root, .d-flex.flex-column {
+  min-height: 100vh;
+}

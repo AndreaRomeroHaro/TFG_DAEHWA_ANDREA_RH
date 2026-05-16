@@ -1,0 +1,94 @@
+<div class="container mt-4">
+  <h3 class="mb-4">{{ editar ? 'Editar Evaluación' : 'Nueva Evaluación Periódica' }}</h3>
+
+  @if (mensajeError) {
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ mensajeError }}
+        <button type="button" class="btn-close" (click)="mensajeError = null"></button>
+    </div>
+  }
+
+  <form (ngSubmit)="crearEvaluacion()" class="card p-4 shadow-sm mb-5">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Fecha</label>
+        <input type="date" class="form-control" [(ngModel)]="nuevaEvaluacion.fecha" name="fecha" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Puntuación (Ej. del 1 al 10)</label>
+        <input type="number" class="form-control" [(ngModel)]="nuevaEvaluacion.puntuacion" name="puntuacion" required>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label fw-bold">Áreas evaluadas</label>
+      <textarea class="form-control" [(ngModel)]="nuevaEvaluacion.areas" name="areas" rows="2" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label class="form-label fw-bold">Instrumentos utilizados</label>
+      <textarea class="form-control" [(ngModel)]="nuevaEvaluacion.instrumentos" name="instrumentos" rows="2" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label class="form-label fw-bold">Cambios observados</label>
+      <textarea class="form-control" [(ngModel)]="nuevaEvaluacion.cambios" name="cambios" rows="2" required></textarea>
+    </div>
+    
+    <div class="d-flex justify-content-end gap-2">
+
+      @if (editar) {
+        <button type="button" class="btn btn-secondary" (click)="resetearFormulario(); editar = false"> Cancelar</button>
+      }
+
+      <button type="submit" class="btn btn-primary">{{ editar ? 'Guardar Cambios' : 'Crear Evaluación' }}</button>
+
+    </div>
+
+  </form>
+
+  <hr>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Historial de Evaluaciones</h4>
+    
+    @if (evaluaciones.length > 0) {
+      <button class="btn btn-success btn-sm" (click)="generarGrafica()">
+        Actualizar Gráfica
+      </button>
+    }
+    
+  </div>
+
+  @if (evaluaciones.length > 0) {
+    <div class="card mb-4 p-3 shadow-sm">
+      <canvas id="graficaEvolucion" height="100"></canvas>
+    </div>
+  }
+  
+  <ul class="list-group">
+    @for(evaluacion of evaluaciones; track evaluacion.id) {
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ evaluacion.fecha | date:'dd/MM/yyyy' }}</strong> - Puntuación: {{ evaluacion.puntuacion }}<br>
+            {{ evaluacion.areas | slice:0:50 }}...
+          </div>
+          <div>
+            <button class="btn btn-sm btn-outline-primary me-2" (click)="detallesEvaluacion(evaluacion.id)">
+              {{ evaluacionDetalle === evaluacion.id ? 'Ocultar' : 'Ver detalles' }}
+            </button>
+            <button class="btn btn-sm btn-outline-secondary me-2" (click)="editarEvaluacion(evaluacion.id)">Editar</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="eliminarEvaluacion(evaluacion.id)">Eliminar</button>
+          </div>
+        </div>
+        @if (evaluacionDetalle === evaluacion.id) {
+          <div class="mt-3 border-top pt-3">
+            <p><strong>Áreas evaluadas:</strong> {{ evaluacion.areas }}</p>
+            <p><strong>Instrumentos utilizados:</strong> {{ evaluacion.instrumentos }}</p>
+            <p><strong>Cambios observados:</strong> {{ evaluacion.cambios }}</p>
+          </div>
+        }
+      </li>
+    } @empty {
+      <div class="alert alert-info">Aún no hay evaluaciones periódicas para mostrar.</div>
+    }
+  </ul>
+</div>

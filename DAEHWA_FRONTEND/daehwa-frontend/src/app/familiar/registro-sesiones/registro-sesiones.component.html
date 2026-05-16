@@ -1,0 +1,54 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">Registro de Sesiones</h2>
+
+  @if (cargando) {
+    <p>Cargando sesiones...</p>
+  }
+
+  @if (error) {
+    <div class="alert alert-danger">{{ error }}</div>
+  }
+
+  @if (!cargando && !error && sesiones.length === 0) {
+    <p>No hay sesiones registradas todavía.</p>
+  }
+
+  @if (!cargando && !error && sesiones.length > 0) {
+
+    <ul class="list-group">
+
+      @for (sesion of sesiones; track sesion.id) {
+
+        <li class="list-group-item">
+
+          <strong>Fecha:</strong>
+          {{ sesion.fecha | date:'dd/MM/yyyy' }} <br>
+
+          <strong>Actividades:</strong>
+          {{ sesion.actividades }} <br>
+
+          <strong>Áreas trabajadas:</strong>
+          {{ sesion.areas_lenguaje }} <br>
+
+          <strong>Logros:</strong>
+          {{ sesion.logros }} <br>
+
+          <strong>Aspectos a mejorar:</strong>
+          {{ sesion.aspectos_mejorar }} <br>
+
+          <strong>Observaciones:</strong>
+          {{ sesion.observaciones }} <br>
+
+          <p><strong>Multimedia:</strong></p>
+            @if (sesion.multimedia) {
+            <a [href]="sesion.multimedia" target="_blank">Ver archivo</a>
+            } @else {
+            <p>No hay archivo adjunto.</p>
+            }
+
+        </li>
+      }
+    </ul>
+  }
+</div>

@@ -1,0 +1,84 @@
+<div class="container mt-4">
+  <h3 class="mb-4">{{ editar ? 'Editar Plan' : 'Nuevo Plan de Intervención' }}</h3>
+
+  @if (mensajeError) {
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ mensajeError }}
+        <button type="button" class="btn-close" (click)="mensajeError = null"></button>
+    </div>
+  }
+
+  <form (ngSubmit)="crearPlan()" class="card p-4 shadow-sm mb-5">
+    <div class="mb-3">
+      <label class="form-label fw-bold">Objetivos Específicos</label>
+      <textarea class="form-control" [(ngModel)]="nuevoPlan.objetivos_especificos" name="objetivos" rows="2" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-bold">Contenidos</label>
+      <textarea class="form-control" [(ngModel)]="nuevoPlan.contenidos" name="contenidos" rows="2" required></textarea>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Frecuencia (Sesiones/Semanales)</label>
+        <input type="number" class="form-control" [(ngModel)]="nuevoPlan.frecuencia" name="frecuencia" required>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Duración de sesiones (Minutos)</label>
+        <input type="number" class="form-control" [(ngModel)]="nuevoPlan.duracion_sesiones" name="duracion" required>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+
+    @if (editar) {
+      <button type="button" class="btn btn-secondary" (click)="resetearFormulario(); editar = false">Cancelar</button>
+    }
+    <button type="submit" class="btn btn-primary">
+      {{ editar ? 'Guardar Cambios' : 'Crear Plan' }}
+    </button>
+
+  </div>
+
+  </form>
+
+  <hr>
+
+  <h4 class="mb-3">Planes de Intervención Previos</h4>
+
+  <ul class="list-group">
+    @for(plan of planes; track plan.id) {
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <strong>ID: {{ plan.id }}</strong><br>
+            {{ plan.objetivos_especificos | slice:0:50 }}...
+          </div>
+
+          <div>
+            <button class="btn btn-sm btn-outline-primary me-2" (click)="verDetalle(plan.id)">
+              {{ detallePlan === plan.id ? 'Ocultar' : 'Ver detalles' }}
+            </button>
+
+            <button class="btn btn-sm btn-outline-secondary me-2" (click)="editarPlanIntervencion(plan.id)">Editar</button>
+
+            <button class="btn btn-sm btn-outline-danger" (click)="eliminarPlan(plan.id)">Eliminar</button>
+          </div>
+        </div>
+
+        @if(detallePlan === plan.id) {
+          <div class="mt-3 border-top pt-3">
+            <p><strong>Objetivos específicos:</strong> {{ plan.objetivos_especificos }}</p>
+            <p><strong>Contenidos:</strong> {{ plan.contenidos }}</p>
+            <p><strong>Frecuencia:</strong> {{ plan.frecuencia }} por semana</p>
+            <p><strong>Duración:</strong> {{ plan.duracion_sesiones }} min</p>
+          </div>
+        }
+      </li>
+    } @empty {
+      <div class="alert alert-info">Aún no hay planes de intervención para este paciente.</div>
+    }
+  </ul>
+</div>

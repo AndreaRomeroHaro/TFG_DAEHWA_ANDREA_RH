@@ -1,0 +1,15 @@
+services:
+
+  backend:
+    build: ./DAEHWA_BACKEND
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./DAEHWA_BACKEND:/app
+
+  frontend:
+    build: ./DAEHWA_FRONTEND/daehwa-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend

@@ -1,0 +1,30 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Chat con familiar</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body" id="bodyCard">
+
+            @for (mensaje of mensajes; track mensaje.id) {
+
+                <div class="mb-3">
+                    <strong>{{ mensaje.emisor === idLogopeda ? 'Tú' : 'Familiar' }}</strong>
+                    <div>{{ mensaje.texto }}</div>
+                    <div class="text-muted" id="fechaEstilo">
+                        {{ mensaje.fecha | date:'short' }}
+                    </div>
+
+                </div>
+
+            } @empty {
+                <p class="text-muted">No hay mensajes todavía.</p>
+            }
+
+        </div>
+
+        <div class="card-footer d-flex">
+            <input type="text"class="form-control me-2" [(ngModel)]="mensajeNuevo"placeholder="Escribe un mensaje...">
+
+            <button class="btn btn-primary" (click)="enviarMensaje()"> Enviar</button>
+        </div>
+    </div>
+</div>

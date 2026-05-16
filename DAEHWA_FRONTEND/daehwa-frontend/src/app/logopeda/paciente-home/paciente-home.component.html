@@ -1,0 +1,15 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">{{ paciente?.nombre }} {{ paciente?.apellidos }}</h2>
+
+  <div class="list-group">
+
+    <button class="list-group-item list-group-item-action" (click)="ir('evaluacion-inicial')">Evaluación Inicial</button>
+    <button class="list-group-item list-group-item-action" (click)="ir('diagnostico-funcional')">Diagnóstico Funcional</button>
+    <button class="list-group-item list-group-item-action" (click)="ir('plan-intervencion')">Plan de Intervención</button>
+    <button class="list-group-item list-group-item-action" (click)="ir('registro-sesiones')">Registro de Sesiones</button>
+    <button class="list-group-item list-group-item-action" (click)="ir('evaluaciones-periodicas')">Evaluaciones Periódicas</button>
+    <button class="list-group-item list-group-item-action" (click)="ir('chat')">Chat con la familia</button>
+
+  </div>
+</div>

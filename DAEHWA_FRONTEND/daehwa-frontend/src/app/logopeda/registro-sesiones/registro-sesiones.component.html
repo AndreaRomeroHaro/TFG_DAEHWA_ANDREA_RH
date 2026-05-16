@@ -1,0 +1,125 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">Registro de Sesiones</h2>
+
+  @if (mensajeError) {
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ mensajeError }}
+      <button type="button" class="btn-close" (click)="mensajeError = null"></button>
+    </div>
+  }
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+
+      <h5 class="mb-3">{{ editar ? 'Editar sesión' : 'Nueva sesión' }}</h5>
+
+      <div class="mb-3">
+        <label class="form-label">Fecha</label>
+        <input type="date" class="form-control" [(ngModel)]="nuevaSesion.fecha">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Actividades realizadas</label>
+        <textarea class="form-control" rows="2" [(ngModel)]="nuevaSesion.actividades"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Áreas trabajadas</label>
+        <input type="text" class="form-control" [(ngModel)]="nuevaSesion.areas_lenguaje">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Logros</label>
+        <textarea class="form-control" rows="2" [(ngModel)]="nuevaSesion.logros"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Aspectos a mejorar</label>
+        <textarea class="form-control" rows="2" [(ngModel)]="nuevaSesion.aspectos_mejorar"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Observaciones</label>
+        <textarea class="form-control" rows="2" [(ngModel)]="nuevaSesion.observaciones"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Archivo multimedia</label>
+        <input type="file" class="form-control" (change)="subirMultimedia($event)">
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        @if (editar) {
+          <button type="button" class="btn btn-secondary"
+                  (click)="resetearFormulario(); editar = false">
+            Cancelar
+          </button>
+        }
+
+        <button class="btn btn-primary" (click)="crearSesion()">
+          {{ editar ? 'Guardar cambios' : 'Guardar sesión' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <h4 class="mb-3">Sesiones registradas</h4>
+
+  <ul class="list-group">
+
+    @for (sesion of sesiones; track sesion.id) {
+
+      <li class="list-group-item">
+
+        <strong>{{ sesion.fecha | date:'dd/MM/yyyy' }}</strong><br>
+        {{ sesion.actividades }}
+
+        @if (registroDetalle === sesion.id) {
+          <div class="mt-3 border-top pt-3">
+
+            <p><strong>Áreas trabajadas:</strong> {{ sesion.areas_lenguaje }}</p>
+            <p><strong>Logros:</strong> {{ sesion.logros }}</p>
+            <p><strong>Aspectos a mejorar:</strong> {{ sesion.aspectos_mejorar }}</p>
+            <p><strong>Observaciones:</strong> {{ sesion.observaciones }}</p>
+
+            <p><strong>Multimedia:</strong></p>
+
+            @if (sesion.multimedia) {
+              <a [href]="sesion.multimedia" target="_blank">Ver archivo</a>
+            } @else {
+              <p>No hay archivo adjunto.</p>
+            }
+
+          </div>
+        }
+
+        <div class="d-flex gap-2 mt-2">
+          <button class="btn btn-sm btn-outline-primary"
+                  (click)="detallesSesion(sesion.id)">
+            {{ registroDetalle === sesion.id ? 'Ocultar' : 'Ver detalles' }}
+          </button>
+
+          <button class="btn btn-sm btn-outline-secondary"
+                  (click)="editarSesion(sesion.id)">
+            Editar
+          </button>
+
+          <button class="btn btn-sm btn-outline-danger"
+                  (click)="eliminarSesion(sesion.id)">
+            Eliminar
+          </button>
+        </div>
+
+      </li>
+
+    } @empty {
+      <li class="list-group-item text-center text-muted">
+        No hay sesiones registradas.
+      </li>
+    }
+
+  </ul>
+
+</div>

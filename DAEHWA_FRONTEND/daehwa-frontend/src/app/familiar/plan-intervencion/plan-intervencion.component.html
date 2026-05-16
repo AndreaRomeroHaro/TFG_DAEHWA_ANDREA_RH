@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Plan de Intervención</h2>
+
+  @if (cargando) {
+    <p>Cargando plan de intervención...</p>
+  }
+  @if (error) {
+    <div class="alert alert-danger">{{ error }}</div>
+  }
+  @if (!cargando && !error && !plan_intervencion) {
+    <p>No hay diagnóstico funcional registrado.</p>
+  }
+  @if (!cargando && !error && plan_intervencion) {
+
+    <div class="card p-3 shadow-sm">
+
+        <p><strong>Objetivos específicos:</strong></p>
+        <p>{{plan_intervencion.objetivos_especificos}}</p>
+
+        <p><strong>Contenidos:</strong></p>
+        <p>{{plan_intervencion.contenidos}}</p>
+
+        <p><strong>Frecuencia:</strong></p>{{plan_intervencion.frecuencia}}
+
+        <p><strong>Duración de las sesiones:</strong></p>{{plan_intervencion.duracion_sesiones}}
+
+    </div>
+
+  }
+</div>

@@ -1,0 +1,40 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">Evaluaciones periodicas</h2>
+
+  @if (cargando) {
+    <p>Cargando sesiones...</p>
+  }
+
+  @if (error) {
+    <div class="alert alert-danger">{{ error }}</div>
+  }
+
+  @if (!cargando && !error && evaluaciones.length === 0) {
+    <p>No hay sesiones registradas todavía.</p>
+  }
+
+  @if (!cargando && !error && evaluaciones.length > 0) {
+
+    <ul class="list-group">
+
+      @for (evaluacion of evaluaciones; track evaluacion.id) {
+      <li class="list-group-item">
+
+        <p><strong>Áreas evaluadas:</strong></p>
+        <p>{{ evaluacion.areas }}</p>
+
+        <p><strong>Instrumentos utilizados:</strong></p>
+        <p>{{ evaluacion.instrumentos }}</p>
+
+        <p><strong>Cambios observados:</strong></p>
+        <p>{{ evaluacion.cambios }}</p>
+
+        <p><strong>Puntuación:</strong> {{ evaluacion.puntuacion }}</p>
+
+      </li>
+    }
+
+    </ul>
+  }
+</div>

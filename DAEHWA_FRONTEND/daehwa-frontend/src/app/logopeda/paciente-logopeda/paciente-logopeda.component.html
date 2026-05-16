@@ -1,0 +1,23 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">Mis Pacientes</h2>
+
+  <div class="row">
+    @for (p of pacientes; track p.id) {
+      <div class="col-md-4 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ p.nombre }}</h5>
+            <p class="card-text text-muted"> ID Paciente: {{ p.id }}</p>
+            <button class="btn btn-primary w-100" (click)="entrarPaciente(p.id)">Entrar</button>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ mensajeError }}
+        <button type="button" class="btn-close" (click)="mensajeError = null"></button>
+    </div>
+    }
+  </div>
+</div>

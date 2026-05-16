@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Diagnóstico Funcional</h2>
+  @if (cargando) {
+    <p>Cargando diagnóstico...</p>
+  }
+  @if (error) {
+    <div class="alert alert-danger">{{ error }}</div>
+  }
+  @if (!cargando && !error && !diagnostico) {
+    <p>No hay diagnóstico funcional registrado.</p>
+  }
+  @if (!cargando && !error && diagnostico) {
+
+    <div class="card p-3 shadow-sm">
+
+      <p><strong>Fecha:</strong> {{ diagnostico.fecha | date:'dd/MM/yyyy' }}</p>
+
+      <p><strong>Diagnóstico funcional:</strong></p>
+      <p>{{ diagnostico.diagnostico_funcional }}</p>
+
+      <p><strong>Recomendaciones:</strong></p>
+      <p>{{ diagnostico.recomendaciones }}</p>
+
+    </div>
+
+  }
+</div>
