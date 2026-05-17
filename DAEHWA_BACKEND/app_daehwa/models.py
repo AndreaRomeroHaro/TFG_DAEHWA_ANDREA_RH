@@ -48,7 +48,6 @@ class Paciente(models.Model):
     nombre=models.CharField(max_length=200)
     apellidos=models.CharField(max_length=200)
     fecha_nacimiento=models.DateField()
-    foto_paciente=models.ImageField(upload_to='imagenes/foto_paciente/',blank=True,null=True,validators=[FileExtensionValidator(allowed_extensions=['jpg','png','jpeg'])])
     logopeda_asignado=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,null=True,limit_choices_to={'rol':'L'},related_name='pacientes_asignados')
     familiar=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,limit_choices_to={'rol':'F'},related_name='familiar_registrado')
 

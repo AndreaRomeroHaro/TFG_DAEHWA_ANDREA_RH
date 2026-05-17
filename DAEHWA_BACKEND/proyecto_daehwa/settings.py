@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-jyh4q4ja2-!(pqu(k00&zo6z_!w3gz=&n(k^rtxja*yeodgc1p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',"daehwa-backend.onrender.com"]
 
 
 # Application definition
@@ -134,6 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
+    "https://daehwa-frontend.vercel.app"
 ]
 
 MEDIA_URL = '/media/'
@@ -156,3 +157,7 @@ SIMPLE_JWT={
     'ROTATE_REFRESH_TOKENS':True,                  #DAR NUEVO TOKEN CADA VEZ QUE SE INICIA SESION
     'BLACKLIST_AFTER_ROTATION':True,               #ANULAR TOKENS VIEJOS 
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://daehwa-frontend.vercel.app",
+]

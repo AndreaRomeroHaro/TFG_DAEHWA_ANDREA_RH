@@ -3,7 +3,6 @@ export interface Paciente {
   nombre: string;
   apellidos: string;
   fecha_nacimiento: string;
-  foto_paciente: string | null;
   logopeda_asignado: number | null;
   familiar: number;
 }
