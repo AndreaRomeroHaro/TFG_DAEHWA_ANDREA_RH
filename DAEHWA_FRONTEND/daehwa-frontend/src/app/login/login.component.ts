@@ -19,7 +19,7 @@ export class LoginComponent{
     constructor(private auth:AuthUserService, private router:Router){}
         login() {
         this.auth.login(this.username, this.password).subscribe({
-            next: (res) => {
+            next: () => {
                 
                 const usuarioGuardado = this.auth.obtenerUsuarioActual();
                 const rol = usuarioGuardado.rol;

@@ -35,9 +35,22 @@ class Evaluacion_InicialViewSet(viewsets.ModelViewSet):
     queryset=Evaluacion_Inicial.objects.all()
     serializer_class=Evaluacion_InicialSerializer
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.rol == 'L':
+            return Evaluacion_Inicial.objects.filter(paciente__logopeda_asignado=user)
+        return Evaluacion_Inicial.objects.filter(paciente__familiar=user)
+
+
 class Diagnostico_FuncionalViewSet(viewsets.ModelViewSet):
     queryset=Diagnostico_Funcional.objects.all()
     serializer_class=Diagnostico_FuncionalSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.rol == 'L':
+            return Diagnostico_Funcional.objects.filter(paciente__logopeda_asignado=user)
+        return Diagnostico_Funcional.objects.filter(paciente__familiar=user)
 
 class Evaluacion_PeriodicaViewSet(viewsets.ModelViewSet):
     queryset=Evaluacion_Periodica.objects.all()
@@ -52,6 +65,13 @@ class Evaluacion_PeriodicaViewSet(viewsets.ModelViewSet):
 class Plan_IntervencionViewSet(viewsets.ModelViewSet):
     queryset=Plan_Intervencion.objects.all()
     serializer_class=Plan_IntervencionSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.rol == 'L':
+            return Plan_Intervencion.objects.filter(paciente__logopeda_asignado=user)
+        return Plan_Intervencion.objects.filter(paciente__familiar=user)
+
 
 class CitaViewSet(viewsets.ModelViewSet):
     serializer_class=CitaSerializer

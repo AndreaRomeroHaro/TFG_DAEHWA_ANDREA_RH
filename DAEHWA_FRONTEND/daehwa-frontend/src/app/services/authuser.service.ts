@@ -54,9 +54,6 @@ export class AuthUserService{
         this.usuarioSubject.next(null);
     }
 
-    estaLogeado():boolean{
-        return !!localStorage.getItem('access');
-    }
 
     getToken(){
         return localStorage.getItem('access');
