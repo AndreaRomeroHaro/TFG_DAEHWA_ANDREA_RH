@@ -54,7 +54,6 @@ export class AuthUserService{
         this.usuarioSubject.next(null);
     }
 
-
     getToken(){
         return localStorage.getItem('access');
     }
