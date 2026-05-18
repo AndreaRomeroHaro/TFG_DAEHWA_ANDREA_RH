@@ -1,22 +1,18 @@
 <div class="container mt-4">
   <h2 class="mb-4">Panel del Familiar</h2>
 
-  @if (cargando) {
-    <p>Cargando información del paciente...</p>
-  } @else {
-    <div class="row">
-      @for (opcion of opciones; track opcion.ruta) {
-        <div class="col-12 col-md-6 col-lg-4 mb-3">
-          <div class="card shadow-sm p-3 text-center">
-            <h5 class="mt-2">{{ opcion.titulo }}</h5>
-            <a [routerLink]="['/familiar/paciente', idPaciente, opcion.ruta]" 
-               class="btn btn-primary mt-2"
-               [class.disabled]="idPaciente === 0">
-               Entrar
-            </a>
-          </div>
+  <div class="row">
+    @for (opcion of opciones; track opcion.ruta) {
+      <div class="col-12 col-md-6 col-lg-4 mb-3">
+        <div class="card shadow-sm p-3 text-center">
+          <h5 class="mt-2">{{ opcion.titulo }}</h5>
+
+          <a [routerLink]="['/familiar/paciente', idPaciente, opcion.ruta]" 
+             class="btn btn-primary mt-2">
+             Entrar
+          </a>
         </div>
-      }
-    </div>
-  }
+      </div>
+    }
+  </div>
 </div>

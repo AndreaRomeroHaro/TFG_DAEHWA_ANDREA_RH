@@ -1,17 +1,18 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PacienteLogopedaService } from '../services/pacientes-logopeda.service';
 
 @Component({
   selector: 'app-familiar',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './familiar.component.html',
-  styleUrl: './familiar.component.css',
+  styleUrls: ['./familiar.component.css']
 })
 export class ComponenteFamiliar implements OnInit {
-  idPaciente = 0;
-  cargando = true;
+
+  idPaciente!: number;
 
   opciones = [
     { titulo: 'Diagnóstico funcional', ruta: 'diagnostico-funcional' },
@@ -22,25 +23,10 @@ export class ComponenteFamiliar implements OnInit {
     { titulo: 'Citas', ruta: 'citas'}
   ];
 
-  constructor(
-    private pacienteService: PacienteLogopedaService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.pacienteService.obtenerPacientes().subscribe({
-  next: (pacientes) => {
-    if (pacientes.length > 0) {
-      this.idPaciente = pacientes[0].id;
-    }
-    this.cargando = false;
-    this.cdr.detectChanges();
-  },
-      error: () => {
-        this.cargando = false;
-        this.cdr.detectChanges();
-      }
-    });
+    this.idPaciente = Number(this.route.snapshot.paramMap.get('idPaciente'));
   }
 }
 export default ComponenteFamiliar;

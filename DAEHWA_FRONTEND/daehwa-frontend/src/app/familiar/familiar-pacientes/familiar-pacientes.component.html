@@ -1,0 +1,22 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Mis Pacientes</h2>
+
+  @if (cargando) {
+    <p>Cargando...</p>
+  }
+
+  @for (p of pacientes; track p.id) {
+    <div class="card p-3 mb-3">
+      <h5>{{ p.nombre }} {{ p.apellidos }}</h5>
+
+      <a class="btn btn-primary mt-2"
+         [routerLink]="['/familiar/paciente', p.id]">
+        Entrar
+      </a>
+    </div>
+  }
+
+  @empty {
+    <p class="text-muted">No tienes pacientes asignados.</p>
+  }
+</div>

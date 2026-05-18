@@ -54,40 +54,63 @@ export const routes: Routes = [
       { path: '', redirectTo: 'pacientes', pathMatch: 'full' }
     ]
   },
-
   {
     path: 'familiar',
     canActivate: [authGuard, roleGuard('F')],
     children: [
-      { path: '', component: ComponenteFamiliar }, 
+      
+      {
+        path: '',
+        loadComponent: () =>
+          import('./familiar/familiar-pacientes/familiar-pacientes.component')
+            .then(m => m.default)
+      },
 
-      { path: 'paciente/:idPaciente/diagnostico-funcional', loadComponent: () =>
+      {
+        path: 'paciente/:idPaciente',
+        loadComponent: () =>
+          import('./familiar/familiar.component')
+            .then(m => m.default)
+      },
+
+      {
+        path: 'paciente/:idPaciente/diagnostico-funcional',
+        loadComponent: () =>
           import('./familiar/diagnostico-funcional/diagnostico-funcional.component')
             .then(m => m.default)
       },
-      { path: 'paciente/:idPaciente/evaluaciones-periodicas', loadComponent: () =>
+      {
+        path: 'paciente/:idPaciente/evaluaciones-periodicas',
+        loadComponent: () =>
           import('./familiar/evaluaciones-periodicas/evaluaciones-periodicas.component')
             .then(m => m.default)
       },
-      { path: 'paciente/:idPaciente/plan-intervencion', loadComponent: () =>
+      {
+        path: 'paciente/:idPaciente/plan-intervencion',
+        loadComponent: () =>
           import('./familiar/plan-intervencion/plan-intervencion.component')
             .then(m => m.default)
       },
-      { path: 'paciente/:idPaciente/registro-sesiones', loadComponent: () =>
+      {
+        path: 'paciente/:idPaciente/registro-sesiones',
+        loadComponent: () =>
           import('./familiar/registro-sesiones/registro-sesiones.component')
             .then(m => m.default)
       },
-      { path: 'paciente/:idPaciente/chat', loadComponent: () =>
+      {
+        path: 'paciente/:idPaciente/chat',
+        loadComponent: () =>
           import('./familiar/chat/chat.component')
             .then(m => m.default)
       },
-      { path: 'paciente/:idPaciente/citas', loadComponent: () =>
+      {
+        path: 'paciente/:idPaciente/citas',
+        loadComponent: () =>
           import('./familiar/citas-paciente/citas-paciente.component')
             .then(m => m.default)
       }
     ]
   },
-
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];
